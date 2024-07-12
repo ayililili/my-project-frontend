@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
-import axios from 'axios';
+import api from '../services/api';
 import { API_BASE_URL } from '../constants';
 
 interface IFormInput {
@@ -25,7 +25,7 @@ const ResetPassword: React.FC = () => {
     }
 
     try {
-      await axios.post(`${API_BASE_URL}/password/reset-password`, {
+      await api.post(`${API_BASE_URL}/password/reset-password`, {
         token,
         password: data.password,
       });

@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { Container, TextField, Button, Typography, Box, Link } from '@mui/material';
-import axios from 'axios';
+import api from '../services/api';
 import { API_BASE_URL } from '../constants';
 
 interface IFormInput {
@@ -17,7 +17,7 @@ const Register: React.FC = () => {
 
   const onSubmit = async (data: IFormInput) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/auth/check-account/${data.account}`);
+      const response = await api.get(`${API_BASE_URL}/auth/check-account/${data.account}`);
       if (!response.data.available) {
         setError('account', { type: 'manual', message: '帳號已存在。' });
         return;
@@ -28,7 +28,7 @@ const Register: React.FC = () => {
     }
 
     try {
-      const response = await axios.get(`${API_BASE_URL}/auth/check-email/${data.email}`);
+      const response = await api.get(`${API_BASE_URL}/auth/check-email/${data.email}`);
       if (!response.data.available) {
         setError('email', { type: 'manual', message: '郵箱已存在。' });
         return;
@@ -39,7 +39,7 @@ const Register: React.FC = () => {
     }
 
     try {
-      await axios.post(`${API_BASE_URL}/auth/register`, data);
+      await api.post(`${API_BASE_URL}/auth/register`, data);
       navigate('/login');
     } catch (err) {
       console.error('註冊失敗', err);
@@ -48,12 +48,7 @@ const Register: React.FC = () => {
 
   return (
     <Container maxWidth="sm">
-      <Box
-        sx={{
-          textAlign: 'center',
-          marginTop: '5rem',
-        }}
-      >
+      <Box sx={{ textAlign: 'center', marginTop: '5rem' }}>
         <Typography variant="h4" gutterBottom>
           註冊
         </Typography>

@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import api from '../services/api';
+import { API_BASE_URL } from '../constants';
 
 interface AuthContextType {
   isLoggedIn: boolean;
@@ -15,11 +16,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
-      api.post('/check-token', { token: accessToken })
+      api.post(`${API_BASE_URL}/auth/check-token`, { token: accessToken })
         .then(() => setIsLoggedIn(true))
         .catch(async () => {
           try {
-            const response = await api.post('/refresh-token');
+            const response = await api.post(`${API_BASE_URL}/auth/token`);
             localStorage.setItem('accessToken', response.data.accessToken);
             setIsLoggedIn(true);
           } catch (error) {

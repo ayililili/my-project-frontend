@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
-import axios from 'axios';
+import api from '../services/api';
 import { API_BASE_URL } from '../constants';
 
 const VerifyResetToken: React.FC = () => {
@@ -20,7 +20,7 @@ const VerifyResetToken: React.FC = () => {
 
   const verifyToken = async (token: string) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/password/reset-password`, { params: { token } });
+      const response = await api.get(`${API_BASE_URL}/password/reset-password`, { params: { token } });
       if (response.data.message === 'Token is valid') {
         navigate(`/reset-password?token=${token}`);
       }

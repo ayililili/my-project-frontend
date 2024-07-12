@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
-import axios from 'axios';
+import api from '../services/api';
 import { API_BASE_URL } from '../constants';
 
 const ForgotPassword: React.FC = () => {
@@ -13,7 +13,7 @@ const ForgotPassword: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/password/forgot-password`, { account });
+      const response = await api.post(`${API_BASE_URL}/password/forgot-password`, { account });
       if (response.data.message === 'Password reset email has been sent') {
         navigate('/verify-reset-token');
       }
