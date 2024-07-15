@@ -17,8 +17,12 @@ const Login: React.FC = () => {
 
     try {
       const response = await api.post(`${API_BASE_URL}/auth/login`, { account, password });
-      login(response.data.accessToken);
-      navigate('/');
+      if (response.data.user.isEmailVerified) {
+        login(response.data.accessToken);
+        navigate('/');
+      } else {
+        navigate('/verify-email');
+      }
     } catch (err) {
       setError('帳號或密碼錯誤');
     }

@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { Container, TextField, Button, Typography, Box, Link } from '@mui/material';
+import { useAuth } from '../contexts/AuthContext';
 import api from '../services/api';
 import { API_BASE_URL } from '../constants';
 
@@ -14,6 +15,7 @@ interface IFormInput {
 const Register: React.FC = () => {
   const { register, handleSubmit, formState: { errors }, setError } = useForm<IFormInput>();
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const onSubmit = async (data: IFormInput) => {
     try {
@@ -40,7 +42,16 @@ const Register: React.FC = () => {
 
     try {
       await api.post(`${API_BASE_URL}/auth/register`, data);
-      navigate('/login');
+
+      const loginResponse = await api.post(`${API_BASE_URL}/auth/login`, {
+        account: data.account,
+        password: data.password,
+      });
+
+      login(loginResponse.data.accessToken);
+      await api.post(`${API_BASE_URL}/email/verify-email`);
+      
+      navigate('/verify-email');
     } catch (err) {
       console.error('註冊失敗', err);
     }

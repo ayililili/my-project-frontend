@@ -31,9 +31,7 @@ const ResetPassword: React.FC = () => {
       });
       setSuccess('重設密碼成功');
       setError('');
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
+      navigate('/login');
     } catch (err) {
       setError('重設密碼失敗');
       setSuccess('');
