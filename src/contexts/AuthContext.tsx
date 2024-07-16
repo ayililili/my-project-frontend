@@ -36,10 +36,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.setItem('accessToken', accessToken);
   };
 
-  const logout = () => {
+  const logout = async () => {
     setIsLoggedIn(false);
     localStorage.removeItem('accessToken');
-    api.post('/logout');
+    try {
+      await api.post(`${API_BASE_URL}/auth/logout`);
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   return (

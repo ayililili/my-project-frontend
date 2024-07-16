@@ -9,6 +9,7 @@ import ResetPassword from './pages/ResetPassword';
 import ForgotPassword from './pages/ForgotPassword';
 import VerifyEmail from './pages/VerifyEmail';
 import VerifyResetToken from './pages/VerifyResetToken';
+// import Chat from './pages/Chat';
 
 const darkTheme = createTheme({
   palette: {
@@ -75,6 +76,7 @@ const App: React.FC = () => {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/verify-reset-token" element={<VerifyResetToken />} />
+            {/* <Route path="/chat" element={<Chat />} /> */}
           </Routes>
         </Router>
       </AuthProvider>

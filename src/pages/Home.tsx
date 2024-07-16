@@ -16,10 +16,10 @@ const Home: React.FC = () => {
       }}
     >
       <Typography variant="h2" gutterBottom>
-        線上狼人殺
+        線上聊天室
       </Typography>
       <Typography variant="body1" paragraph>
-        這裡只有最純粹的狼人殺，帶你回到最初的感動。
+        簡易線上聊天室實作
       </Typography>
       <Box
         sx={{
@@ -34,9 +34,9 @@ const Home: React.FC = () => {
               variant="contained"
               color="primary"
               size="large"
-              onClick={() => navigate('/game')}
+              onClick={() => navigate('/chat')}
             >
-              加入遊戲
+              加入聊天
             </Button>
             <Button
               variant="outlined"
